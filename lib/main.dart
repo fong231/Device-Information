@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'device_sensor.dart';
+
 void main() {
   runApp(const MyApp());
 }
@@ -74,7 +76,7 @@ class _MyHomePageState extends State<MyHomePage> {
               children: [
                 // Import the plugin and decorate it in here
                 Text("Device Information"),
-                Text("Device sensors"),
+                SensorsScreen(),
                 Text("Check"),
               ],
             ),
@@ -104,21 +106,27 @@ class NavbarItem extends StatefulWidget {
 class _NavbarItemState extends State<NavbarItem> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: widget.selectedItems == widget.title
-          ? BoxDecoration(
-              border: BoxBorder.fromLTRB(
-                bottom: BorderSide(color: Colors.green.shade900, width: 5),
-              ),
-            )
-          : null,
-      child: TextButton(
-        onPressed: widget.onPressed,
-        style: TextButton.styleFrom(
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.zero),
+    return Stack(
+      alignment: Alignment.bottomCenter,
+      children: [
+        TextButton(
+          onPressed: widget.onPressed,
+          style: TextButton.styleFrom(
+            shape: const RoundedRectangleBorder(
+              borderRadius: BorderRadius.zero,
+            ),
+            minimumSize: Size(double.infinity, 0),
+          ),
+          child: Text(widget.title),
         ),
-        child: Text(widget.title),
-      ),
+        if (widget.title == widget.selectedItems)
+          Positioned(
+            bottom: 0,
+            left: 0,
+            right: 0,
+            child: Container(height: 5, color: Colors.green.shade900),
+          ),
+      ],
     );
   }
 }
