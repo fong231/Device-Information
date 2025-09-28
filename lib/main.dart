@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mid_term_project/check_List.dart';
 
 import 'device_sensor.dart';
 
@@ -77,7 +78,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 // Import the plugin and decorate it in here
                 Text("Device Information"),
                 SensorsScreen(),
-                Text("Check"),
+                CheckListScreen(),
               ],
             ),
           ),
