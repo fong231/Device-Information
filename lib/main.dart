@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mid_term_project/check_List.dart';
 
 import 'device_sensor.dart';
+import 'device_info_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -76,7 +77,7 @@ class _MyHomePageState extends State<MyHomePage> {
               },
               children: [
                 // Import the plugin and decorate it in here
-                Text("Device Information"),
+                DeviceInfoScreen(),
                 SensorsScreen(),
                 CheckListScreen(),
               ],
