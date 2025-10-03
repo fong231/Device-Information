@@ -40,33 +40,94 @@ class _VolumeCheckScreenState extends State<VolumeCheckScreen> {
     bool isUpVolumePress = _currentVolume > _lastVolume;
     bool isDownVolumePress = _currentVolume < _lastVolume;
 
-    return MaterialApp(
-      home: Scaffold(
-        appBar: AppBar(
-          backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-          leading: IconButton(
-            icon: const Icon(Icons.arrow_back),
-            onPressed: () => Navigator.pop(context),
-          ),
-          title: const Text('Volume Check'),
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () => Navigator.pop(context),
         ),
-        body: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              const Icon(Icons.volume_up, size: 50),
-              const SizedBox(height: 16),
-              Text('Up volume Button: $isUpVolumePress'),
-              Text('Down volume Button: $isDownVolumePress'),
-              const SizedBox(height: 16),
-              const Text(
-                'Press the physical volume buttons!',
-                style: TextStyle(fontSize: 16),
+        title: const Text('Volume Check'),
+      ),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            AnimatedContainer(
+              duration: const Duration(milliseconds: 200),
+              width: 80,
+              height: 80,
+              decoration: BoxDecoration(
+                color: isUpVolumePress
+                    ? Colors.green
+                    : isDownVolumePress
+                    ? Colors.red
+                    : Colors.blueGrey,
+                shape: BoxShape.circle,
               ),
-            ],
-          ),
+              child: Icon(
+                isUpVolumePress
+                    ? Icons.arrow_upward
+                    : isDownVolumePress
+                    ? Icons.arrow_downward
+                    : Icons.volume_up,
+                color: Colors.white,
+                size: 40,
+              ),
+            ),
+            const SizedBox(height: 32),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                VolumeButtonIndicator(
+                  label: "Up",
+                  active: isUpVolumePress,
+                  color: Colors.green,
+                ),
+                const SizedBox(width: 16),
+                VolumeButtonIndicator(
+                  label: "Down",
+                  active: isDownVolumePress,
+                  color: Colors.red,
+                ),
+              ],
+            ),
+            const SizedBox(height: 32),
+            const Text(
+              'Press the physical volume buttons!',
+              style: TextStyle(fontSize: 16),
+            ),
+          ],
         ),
       ),
+    );
+  }
+}
+
+class VolumeButtonIndicator extends StatelessWidget {
+  final String label;
+  final bool active;
+  final Color color;
+
+  const VolumeButtonIndicator({
+    super.key,
+    required this.label,
+    required this.active,
+    required this.color,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Icon(
+          active ? Icons.radio_button_checked : Icons.radio_button_off,
+          color: active ? color : Colors.grey,
+          size: 28,
+        ),
+        const SizedBox(height: 4),
+        Text(label),
+      ],
     );
   }
 }
