@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:mid_term_project/check_List.dart';
+import 'package:headset_plugin/headset_plugin.dart';
 
 import 'device_sensor.dart';
 import 'device_info_screen.dart';
 
-void main() {
+void main() async{
+  WidgetsFlutterBinding.ensureInitialized();
+  await HeadsetPlugin.requestBluetoothPermission();
   runApp(const MyApp());
 }
 
